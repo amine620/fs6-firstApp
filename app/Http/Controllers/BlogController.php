@@ -22,10 +22,11 @@ class BlogController extends Controller
         return view('blogs.details',['blog'=>$blog]);
     }
 
-    public function delete($id)
+
+    public function destroy($id)
     {
-       Blog::findOrFail($id)->delete();
-       return back();
+        Blog::findOrFail($id)->delete();
+        return back();
     }
 
 
