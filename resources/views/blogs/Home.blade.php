@@ -14,7 +14,12 @@
         <li class="list-group-item">{{$blog->title}}</li>
         <li class="list-group-item">{{$blog->content}}</li>
         <li class="list-group-item">
-            <a href="details/{{$blog->id}}" class="btn btn-warning">details</a>
+            <form action="delete/{{$blog->id}}" method="POST">
+                @method('DELETE')
+                @csrf
+                <a href="details/{{$blog->id}}" class="btn btn-warning">details</a>
+                <button class="btn btn-danger">delete</button>
+            </form>
         </li>
     </ul>
         

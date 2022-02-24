@@ -22,6 +22,12 @@ class BlogController extends Controller
         return view('blogs.details',['blog'=>$blog]);
     }
 
+    public function delete($id)
+    {
+       Blog::findOrFail($id)->delete();
+       return back();
+    }
+
 
 
     public function contact()
