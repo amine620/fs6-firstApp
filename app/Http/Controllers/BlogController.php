@@ -14,6 +14,16 @@ class BlogController extends Controller
         return view('blogs.Home',['blogs'=>$blogs]);
     }
 
+    public function details($id)
+    {
+        $blog=Blog::findOrFail($id);
+
+        // dd($blog);
+        return view('blogs.details',['blog'=>$blog]);
+    }
+
+
+
     public function contact()
     {
         return view('blogs.Contact');

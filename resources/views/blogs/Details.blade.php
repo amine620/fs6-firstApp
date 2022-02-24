@@ -3,26 +3,21 @@
    
    @section('content')
        
-   <h1>details page </h1>
+   <div class="container">
 
-     {{-- <ul>
-         <li>{{$userInfo['name']}}</li>
-         <li>{{$userInfo['email']}}</li>
-     </ul> --}}
+    <h1 class="text-secondary text-center">details page</h1>
 
 
-     {{-- @foreach ($userInfo as $user)
-         <ul>
-             <li>{{$user}}</li>
-         </ul>
-     @endforeach --}}
-
-     @forelse ($userInfo as $user)
-     <ul>
-        <li>{{$user}}</li>
+    <ul class="list-group col-md-4 mt-2">
+        <li class="list-group-item active">{{$blog->id}}</li>
+        <li class="list-group-item">{{$blog->title}}</li>
+        <li class="list-group-item">{{$blog->content}}</li>
+        <li class="list-group-item">
+            <a href="/home" class="btn btn-warning">back</a>
+        </li>
     </ul>
-     @empty
-         <h1>no user found</h1>
-     @endforelse
+        
+ 
+</div>
    @endsection
 

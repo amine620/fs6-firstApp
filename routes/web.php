@@ -25,7 +25,9 @@ Route::get('/', function () {
 
 Route::get('/users',[UserController::class,"getUsers"]);
 
-Route::get('details/{id}',[UserController::class,'details']);
+
+
+Route::get('details/{id}',[BlogController::class,'details']);
 
 Route::get('home',[BlogController::class,'home']);
 Route::get('about',[BlogController::class,'about']);
