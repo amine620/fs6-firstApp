@@ -21,7 +21,20 @@ class BlogController extends Controller
         // dd($blog);
         return view('blogs.details',['blog'=>$blog]);
     }
+  
+    public function create()
+    {
+        return view('blogs.create');
+    }
 
+    public function store(Request $req)
+    {
+        $blog=new Blog();
+        $blog->title=$req->title;
+        $blog->content=$req->content;
+        $blog->save();
+        return redirect('home');
+    }
 
     public function destroy($id)
     {

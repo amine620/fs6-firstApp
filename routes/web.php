@@ -27,9 +27,11 @@ Route::get('/users',[UserController::class,"getUsers"]);
 
 
 
-Route::get('details/{id}',[BlogController::class,'details']);
 
 Route::delete('destroy/{id}',[BlogController::class,'destroy']);
+Route::post('store',[BlogController::class,'store']);
+Route::get('create',[BlogController::class,'create']);
+Route::get('details/{id}',[BlogController::class,'details']);
 Route::get('home',[BlogController::class,'home']);
 Route::get('about',[BlogController::class,'about']);
 Route::get('contact',[BlogController::class,'contact']);

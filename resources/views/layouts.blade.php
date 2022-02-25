@@ -26,6 +26,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="About">about</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="create">create</a>
+              </li>
             </ul>
           </div>
         </div>
