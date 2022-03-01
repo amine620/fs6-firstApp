@@ -18,7 +18,8 @@
                  @method('DELETE')
                  @csrf
                  <button class="btn btn-danger">delete</button>
-                <a href="details/{{$blog->id}}" class="btn btn-warning">details</a>
+                <a href="details/{{$blog->id}}" class="btn btn-primary">details</a>
+                <a href="show/{{$blog->id}}" class="btn btn-warning">update</a>
             </form>
         </li>
     </ul>

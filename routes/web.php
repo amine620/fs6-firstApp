@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
+use App\Models\Blog;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,9 +30,19 @@ Route::get('/users',[UserController::class,"getUsers"]);
 
 
 Route::delete('destroy/{id}',[BlogController::class,'destroy']);
-Route::post('store',[BlogController::class,'store']);
-Route::get('create',[BlogController::class,'create']);
+
 Route::get('details/{id}',[BlogController::class,'details']);
 Route::get('home',[BlogController::class,'home']);
 Route::get('about',[BlogController::class,'about']);
 Route::get('contact',[BlogController::class,'contact']);
+
+
+
+Route::get('create',[BlogController::class,'create']);
+Route::post('store',[BlogController::class,'store']);
+
+Route::get('show/{id}',[BlogController::class,'show']);
+Route::put('/update/{id}',[BlogController::class,'update']);
+
+
+Route::get('getData',[BlogController::class,'getData']);
