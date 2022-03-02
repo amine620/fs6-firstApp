@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
+
+        // public function __construct()
+        // {
+        //     return $this->middleware('auth')->except('home');
+        // }
+
+
     public function home()
     {
         $blogs=Blog::all();
@@ -71,16 +78,7 @@ class BlogController extends Controller
 
 
 
-    public function contact()
-    {
-        return view('blogs.Contact');
-    }
-
-    public function about()
-    {
-        return view('blogs.About');
-    }
-
+ 
    
     public function getData()
     {
