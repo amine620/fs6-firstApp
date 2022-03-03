@@ -6,6 +6,7 @@ use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -33,7 +34,8 @@ class BlogController extends Controller
   
     public function create()
     {
-        return view('blogs.create');
+        $categories=Category::all();
+        return view('blogs.create',['categories'=>$categories]);
     }
 
     public function store(BlogRequest $req)
@@ -42,6 +44,8 @@ class BlogController extends Controller
         $blog=new Blog();
         $blog->title=$req->title;
         $blog->content=$req->content;
+        $blog->user_id=Auth::user()->id;
+        $blog->category_id=$req->category_id;
         $blog->save();
         return redirect('home');
     }
@@ -51,15 +55,18 @@ class BlogController extends Controller
     {
         $blog=Blog::find($id);
 
+        $this->authorize('view', $blog);
+
         return view('blogs.show',['blog'=>$blog]);
     }
 
-    public function update(BlogRequest $req,$id)
+    public function updateBlog(BlogRequest $req,$id)
     {
        
-      
-
         $blog=Blog::find($id);
+
+        $this->authorize('update', $blog);
+
         $blog->title=$req->title;
         $blog->content=$req->content;
         $blog->save();
@@ -72,7 +79,10 @@ class BlogController extends Controller
 
     public function destroy($id)
     {
-        Blog::findOrFail($id)->delete();
+         $blog= Blog::findOrFail($id);
+        $this->authorize('delete', $blog);
+        $blog->delete();
+
         return back();
     }
 

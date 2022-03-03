@@ -38,7 +38,7 @@ Route::group(['middleware'=>'auth'],function(){
 
     Route::get('show/{id}',[BlogController::class,'show']);
     Route::post('store',[BlogController::class,'store']);
-    Route::put('/update/{id}',[BlogController::class,'update']);
+    Route::put('/update/{id}',[BlogController::class,'updateBlog']);
     Route::delete('destroy/{id}',[BlogController::class,'destroy']);
     Route::get('create',[BlogController::class,'create']);
     Route::get('getData',[BlogController::class,'getData']);

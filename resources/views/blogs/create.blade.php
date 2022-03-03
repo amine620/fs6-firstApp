@@ -20,6 +20,13 @@
         <span class="text-danger">{{ $message }}</span>
         @enderror
 
+        <select class="form-control mt-2" name="category_id" id="">
+            @foreach ($categories as $category)
+
+            <option value="{{$category->id}}">{{$category->name}}</option>
+                
+           @endforeach
+        </select>
         <button class="btn btn-outline-success mt-2 form-control">save</button>
 
     </form>
