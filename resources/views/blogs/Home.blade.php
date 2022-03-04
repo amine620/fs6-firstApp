@@ -7,30 +7,63 @@
 
     <h1 class="text-secondary text-center">home page</h1>
 
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link  @if($tab=='current') active @endif"  href="/home">current blogs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link @if($tab=='trashed') active @endif" href="/trash">trashed blogs</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @if($tab=='with_trashed') active @endif" href="/all">all</a>
+         </li>
+      
+      </ul>
+
  <div class="row">
 
-     @foreach ($blogs as $blog)
+
+   
+
+
+     @forelse ($blogs as $blog)
  
      <ul class="list-group col-md-4 mt-2">
          <li class="list-group-item active">{{$blog->id}}</li>
          <li class="list-group-item">{{$blog->title}}</li>
          <li class="list-group-item">{{$blog->content}}</li>
          <li class="list-group-item">
-               {{-- @if (Auth::user()->id==$blog->user_id)  --}}
+           
+            @if ($blog->deleted_at==null)
+
+                    @can('delete', $blog) 
                     <form action="destroy/{{$blog->id}}" method="post">
                         @method('DELETE')
                         @csrf
                         <button class="btn btn-danger">delete</button>
-                        <a href="show/{{$blog->id}}" class="btn btn-warning">update</a>
                     </form>      
-                {{-- @endif --}}
+                    @endcan
+                
+                    @can('update', $blog)
+                    <a href="show/{{$blog->id}}" class="btn btn-warning">update</a>
+                    @endcan
                 <a href="details/{{$blog->id}}" class="btn btn-primary mt-2">details</a>
+            
+            @else
+            <a href="restore/{{$blog->id}}" class="btn btn-primary">restore</a>
+            @endif
+
          </li>
          <li class="list-group-item">{{$blog->category->name}} - published by : {{$blog->user->name}} </li>
          <li class="list-group-item">{{$blog->created_at->diffForHumans()}}</li>
      </ul>
-         
-     @endforeach
+     @empty
+
+
+     <h1 class="text-secondary text-center">no record</h1>
+
+
+     @endforelse
  </div>
 </div>
 @endsection

@@ -21,7 +21,24 @@ class BlogController extends Controller
     {
         $blogs=Blog::all();
 
-        return view('blogs.Home',['blogs'=>$blogs]);
+        return view('blogs.Home',['blogs'=>$blogs,'tab'=>"current"]);
+    }
+
+    public function trashed_blog()
+    {
+        $blogs=Blog::onlyTrashed()
+        ->where('user_id',Auth::user()->id)
+        ->get();
+        return view('blogs.Home',['blogs'=>$blogs , 'tab'=>"trashed"]);
+    }
+
+    public function all()
+    {
+        $blogs=Blog::withTrashed()
+        ->where('user_id',Auth::user()->id)
+        ->get();
+        return view('blogs.Home',['blogs'=>$blogs , 'tab'=>"with_trashed"]);
+
     }
 
     public function details($id)
@@ -80,15 +97,26 @@ class BlogController extends Controller
     public function destroy($id)
     {
          $blog= Blog::findOrFail($id);
+
         $this->authorize('delete', $blog);
+
         $blog->delete();
 
         return back();
+    }
+    public function restore($id)
+    {
+        Blog::withTrashed()
+        ->where('id', $id)
+        ->restore();
+        
+        return redirect('/home');
     }
 
 
 
  
+   
    
     public function getData()
     {

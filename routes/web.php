@@ -43,6 +43,12 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('create',[BlogController::class,'create']);
     Route::get('getData',[BlogController::class,'getData']);
 
+    // soft delete routes
+    Route::get('trash',[BlogController::class,'trashed_blog']);
+    Route::get('all',[BlogController::class,'all']);
+    Route::get('restore/{id}',[BlogController::class,'restore']);
+
+
 
 });
 
