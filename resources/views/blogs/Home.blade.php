@@ -9,7 +9,7 @@
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link  @if($tab=='current') active @endif"  href="/home">current blogs</a>
+          <a class="nav-link  @if($tab=='current') active @endif"  href="/">current blogs</a>
         </li>
         <li class="nav-item">
           <a class="nav-link @if($tab=='trashed') active @endif" href="/trash">trashed blogs</a>
@@ -54,7 +54,7 @@
             @endif
 
          </li>
-         <li class="list-group-item">{{$blog->category->name}} - published by : {{$blog->user->name}} </li>
+         <li class="list-group-item">{{$blog->category->name}} - published by : {{$blog->user->name}} - ({{$blog->comments->count()}}) comments </li>
          <li class="list-group-item">{{$blog->created_at->diffForHumans()}}</li>
      </ul>
      @empty

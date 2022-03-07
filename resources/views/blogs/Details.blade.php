@@ -37,7 +37,7 @@
                  {{ $comment->created_at->diffForHumans()}}
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
+                  <h5 class="card-title">{{$comment->user->name}}</h5>
                   <p class="card-text">{{$comment->content}}</p>
                 </div>
               </div>
