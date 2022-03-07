@@ -45,7 +45,6 @@ class BlogController extends Controller
     {
         $blog=Blog::findOrFail($id);
 
-        // dd($blog);
         return view('blogs.details',['blog'=>$blog]);
     }
   
@@ -64,13 +63,13 @@ class BlogController extends Controller
         $blog->user_id=Auth::user()->id;
         $blog->category_id=$req->category_id;
         $blog->save();
-        return redirect('home');
+        return redirect('/');
     }
 
 
     public function show($id)
     {
-        $blog=Blog::find($id);
+        $blog=Blog::findOrFail($id);
 
         $this->authorize('view', $blog);
 
@@ -80,7 +79,7 @@ class BlogController extends Controller
     public function updateBlog(BlogRequest $req,$id)
     {
        
-        $blog=Blog::find($id);
+        $blog=Blog::findOrFail($id);
 
         $this->authorize('update', $blog);
 
@@ -89,10 +88,9 @@ class BlogController extends Controller
         $blog->save();
 
       
-        return redirect('home');
+        return redirect('/');
 
     }
-
 
     public function destroy($id)
     {
@@ -104,13 +102,14 @@ class BlogController extends Controller
 
         return back();
     }
+
     public function restore($id)
     {
         Blog::withTrashed()
         ->where('id', $id)
         ->restore();
-        
-        return redirect('/home');
+
+        return redirect('/');
     }
 
 

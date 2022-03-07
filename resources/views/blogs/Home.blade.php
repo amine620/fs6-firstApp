@@ -28,7 +28,7 @@
 
      @forelse ($blogs as $blog)
  
-     <ul class="list-group col-md-4 mt-2">
+     <ul class="list-group col-md-8 mt-2">
          <li class="list-group-item active">{{$blog->id}}</li>
          <li class="list-group-item">{{$blog->title}}</li>
          <li class="list-group-item">{{$blog->content}}</li>

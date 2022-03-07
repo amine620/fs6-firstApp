@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use App\Models\Blog;
 use Illuminate\Support\Facades\Auth;
@@ -17,11 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-
-    return view('welcome');
-
-});
 
 
 
@@ -31,11 +27,13 @@ Route::get('/', function () {
 
 
 
-Route::get('home',[BlogController::class,'home']);
+
+Route::get('/',[BlogController::class,'home']);
 Route::get('details/{id}',[BlogController::class,'details']);
 
 Route::group(['middleware'=>'auth'],function(){
 
+    // blog
     Route::get('show/{id}',[BlogController::class,'show']);
     Route::post('store',[BlogController::class,'store']);
     Route::put('/update/{id}',[BlogController::class,'updateBlog']);
@@ -47,6 +45,9 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('trash',[BlogController::class,'trashed_blog']);
     Route::get('all',[BlogController::class,'all']);
     Route::get('restore/{id}',[BlogController::class,'restore']);
+
+    // comments
+    Route::post('add',[CommentController::class,'store']);
 
 
 
