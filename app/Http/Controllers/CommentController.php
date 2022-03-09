@@ -23,4 +23,10 @@ class CommentController extends Controller
         return back();
 
     }
+
+    public function deleteComment($id)
+    {
+        Comment::findOrFail($id)->delete();
+        return back();
+    }
 }

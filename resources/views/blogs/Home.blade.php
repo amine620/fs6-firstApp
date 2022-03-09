@@ -29,7 +29,6 @@
      @forelse ($blogs as $blog)
  
      <ul class="list-group col-md-8 mt-2">
-         <li class="list-group-item active">{{$blog->id}}</li>
          <li class="list-group-item">{{$blog->title}}</li>
          <li class="list-group-item">{{$blog->content}}</li>
          <li class="list-group-item">
@@ -54,7 +53,7 @@
             @endif
 
          </li>
-         <li class="list-group-item">{{$blog->category->name}} - published by : {{$blog->user->name}} - ({{$blog->comments->count()}}) comments </li>
+         <li class="list-group-item"> <span class="badge bg-primary">{{$blog->category->name}}</span>  - published by : {{$blog->user->name}} - ({{$blog->comments->count()}}) comments </li>
          <li class="list-group-item">{{$blog->created_at->diffForHumans()}}</li>
      </ul>
      @empty

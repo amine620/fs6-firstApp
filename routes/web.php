@@ -48,6 +48,7 @@ Route::group(['middleware'=>'auth'],function(){
 
     // comments
     Route::post('add',[CommentController::class,'store']);
+    Route::delete('deleteComment/{id}',[CommentController::class,'deleteComment']);
 
 
 
