@@ -26,7 +26,9 @@ class CommentController extends Controller
 
     public function deleteComment($id)
     {
-        Comment::findOrFail($id)->delete();
+        $comment= Comment::findOrFail($id);
+        $this->authorize('delete',$comment);
+        $comment->delete();
         return back();
     }
 }

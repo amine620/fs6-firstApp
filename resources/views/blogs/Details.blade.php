@@ -40,13 +40,16 @@
                   <h5 class="card-title">{{$comment->user->name}}</h5>
                   <p class="card-text">{{$comment->content}}</p>
                 </div>
-                <form action="/deleteComment/{{$comment->id}}" method="post">
-                  @csrf
-                  @method('DELETE')
+                
+                @can('delete', $comment) 
+                        <form action="/deleteComment/{{$comment->id}}" method="post">
+                        @csrf
+                        @method('DELETE')
 
-                  <button class="btn btn-danger float-right mx-2 my-2">delete</button>
+                        <button class="btn btn-danger float-right mx-2 my-2">delete</button>
 
-                </form>
+                        </form>
+                @endcan
               </div>
              @endforeach
         
