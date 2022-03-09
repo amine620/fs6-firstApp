@@ -7,7 +7,7 @@
 
   
 
-    <form action="store" method="post" class="form-group col-md-6 offset-3">
+    <form action="store" method="post" class="form-group col-md-6 offset-3" enctype="multipart/form-data">
         @csrf
        
         <input placeholder="title" name="title" type="text" class="form-control mt-2 @error('title') is-invalid @enderror"  value="{{old('title')}}">
@@ -27,6 +27,7 @@
                 
            @endforeach
         </select>
+        <input type="file" class="form-control mt-2" name="photo">
         <button class="btn btn-outline-success mt-2 form-control">save</button>
 
     </form>

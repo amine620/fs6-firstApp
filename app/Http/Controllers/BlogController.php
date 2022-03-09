@@ -62,6 +62,11 @@ class BlogController extends Controller
         $blog->content=$req->content;
         $blog->user_id=Auth::user()->id;
         $blog->category_id=$req->category_id;
+        if($req->hasFile('photo'))
+        {
+            $path= $req->photo->store('images');
+            $blog->photo=$path;
+        }
         $blog->save();
         return redirect('/');
     }
