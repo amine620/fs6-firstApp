@@ -26,6 +26,7 @@ class BlogRequest extends FormRequest
         return [
             'title' => 'required|min:3',
             'content' => 'required|min:3',
+            "photo"=>"mimes:jpg,bmp,png,jpeg,gif|max:2048|min:500"
         ];
     }
 }

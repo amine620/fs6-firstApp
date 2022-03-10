@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -19,7 +20,8 @@ class BlogController extends Controller
 
     public function home()
     {
-        $blogs=Blog::all();
+        $blogs=Blog::latest()->paginate(3);
+       
 
         return view('blogs.Home',['blogs'=>$blogs,'tab'=>"current"]);
     }
@@ -28,7 +30,7 @@ class BlogController extends Controller
     {
         $blogs=Blog::onlyTrashed()
         ->where('user_id',Auth::user()->id)
-        ->get();
+        ->paginate(3);
         return view('blogs.Home',['blogs'=>$blogs , 'tab'=>"trashed"]);
     }
 
@@ -36,7 +38,7 @@ class BlogController extends Controller
     {
         $blogs=Blog::withTrashed()
         ->where('user_id',Auth::user()->id)
-        ->get();
+        ->paginate(3);
         return view('blogs.Home',['blogs'=>$blogs , 'tab'=>"with_trashed"]);
 
     }
@@ -62,10 +64,13 @@ class BlogController extends Controller
         $blog->content=$req->content;
         $blog->user_id=Auth::user()->id;
         $blog->category_id=$req->category_id;
+
         if($req->hasFile('photo'))
         {
-            $path= $req->photo->store('images');
+            // $path= $req->photo->store('images');
+            $path= Storage::putFile("images",$req->photo);
             $blog->photo=$path;
+
         }
         $blog->save();
         return redirect('/');

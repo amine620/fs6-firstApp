@@ -29,6 +29,7 @@
      @forelse ($blogs as $blog)
  
      <ul class="list-group col-md-8 mt-2">
+         <img src="{{Storage::url($blog->photo)}}" alt="">
          <li class="list-group-item">{{$blog->title}}</li>
          <li class="list-group-item">{{$blog->content}}</li>
          <li class="list-group-item">
@@ -63,6 +64,13 @@
 
 
      @endforelse
- </div>
+
+    
+     
+    </div>
+    <div class="mt-5">
+
+        {{ $blogs->links() }}
+    </div>
 </div>
 @endsection

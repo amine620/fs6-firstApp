@@ -28,6 +28,9 @@
            @endforeach
         </select>
         <input type="file" class="form-control mt-2" name="photo">
+        @error('photo')
+        <span class="text-danger">{{ $message }}</span>
+        @enderror
         <button class="btn btn-outline-success mt-2 form-control">save</button>
 
     </form>
