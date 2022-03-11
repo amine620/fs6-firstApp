@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 use App\Models\Blog;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +53,10 @@ Route::group(['middleware'=>'auth'],function(){
     // comments
     Route::post('add',[CommentController::class,'store']);
     Route::delete('deleteComment/{id}',[CommentController::class,'deleteComment']);
+
+    // likes
+    Route::post('storeLike',[LikeController::class,"store"]);
+    Route::delete('removeLike',[LikeController::class,"remove"]);
 
 
 

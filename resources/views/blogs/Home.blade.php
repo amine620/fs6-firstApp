@@ -61,10 +61,38 @@
          </li>
          <li class="list-group-item"> <span class="badge bg-primary">{{$blog->category->name}}</span>  - published by : {{$blog->user->name}} - ({{$blog->comments->count()}}) comments </li>
          <li class="list-group-item">{{$blog->created_at->diffForHumans()}}</li>
+         <li class="list-group-item">
+             @if ($blog->likes()->where('blog_id',$blog->id)->where('user_id',Auth::user()->id)->first())
+                 
+             <form action="/removeLike" method="post">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" value="{{$blog->id}}" name="blog_id">
+
+                <button style="border:none;background-color:white" class="float-right"> 
+                    <i class="fa fa-heart " style="font-size:20px;color:red;"></i>
+                    <span style="font-size:20px;">({{$blog->likes->count()}})</span>
+                </button>
+              
+
+            </form>
+             @else
+             <form action="/storeLike" method="post">
+                @csrf
+                <input type="hidden" value="{{$blog->id}}" name="blog_id">
+                <button style="border:none;background-color:white" class="float-right">
+                    <i class="fa fa-heart-o" style="font-size:20px;"></i>
+                    <span style="font-size:20px;">({{$blog->likes->count()}})</span>
+                </button>
+            </form>
+             @endif
+          
+
+         </li>
      </ul>
      @empty
 
-
+ 
      <h1 class="text-secondary text-center">no record</h1>
 
 
