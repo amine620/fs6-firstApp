@@ -27,4 +27,16 @@ class Blog extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+
+    // public static function booted()
+    // {
+    //       static::deleting(function($blog){
+    //            $blog->comments()->delete();
+    //       });
+
+    // }
+
+   
+
 }

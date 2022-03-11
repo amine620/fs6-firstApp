@@ -50,7 +50,12 @@
                 <a href="details/{{$blog->id}}" class="btn btn-primary mt-2">details</a>
             
             @else
-            <a href="restore/{{$blog->id}}" class="btn btn-primary">restore</a>
+            <form action="/forceDelete/{{$blog->id}}" method="post">
+                @csrf
+                @method("DELETE")
+                <button class="btn btn-danger" onclick="return confirm('are you sure?')">Permanently Deleting </button>
+                <a href="restore/{{$blog->id}}" class="btn btn-primary">restore</a>
+            </form>
             @endif
 
          </li>

@@ -8,7 +8,7 @@
 
   
 
-    <form action="/update/{{$blog->id}}" method="POST" class="form-group col-md-6 offset-3">
+    <form action="/update/{{$blog->id}}" method="POST" class="form-group col-md-6 offset-3" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -21,7 +21,17 @@
         @error('content')
         <span class="text-danger">{{ $message }}</span>
         @enderror
+        <select class="form-control mt-2" name="category_id" id="">
+            @foreach ($categories as $category)
 
+            <option value="{{$category->id}}">{{$category->name}}</option>
+                
+           @endforeach
+        </select>
+        <input type="file" class="form-control mt-2" name="photo">
+        @error('photo')
+        <span class="text-danger">{{ $message }}</span>
+        @enderror
         <button class="btn btn-outline-warning mt-2 form-control">save</button>
 
     </form>

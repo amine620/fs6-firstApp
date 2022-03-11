@@ -78,7 +78,7 @@ class BlogPolicy
      */
     public function restore(User $user, Blog $blog)
     {
-        //
+        return $user->id===$blog->user_id;
     }
 
     /**
@@ -90,6 +90,6 @@ class BlogPolicy
      */
     public function forceDelete(User $user, Blog $blog)
     {
-        //
+        return $user->id===$blog->user_id;
     }
 }

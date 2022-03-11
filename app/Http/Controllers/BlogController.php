@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -21,32 +22,14 @@ class BlogController extends Controller
     public function home()
     {
         $blogs=Blog::latest()->paginate(3);
-       
-
         return view('blogs.Home',['blogs'=>$blogs,'tab'=>"current"]);
     }
 
-    public function trashed_blog()
-    {
-        $blogs=Blog::onlyTrashed()
-        ->where('user_id',Auth::user()->id)
-        ->paginate(3);
-        return view('blogs.Home',['blogs'=>$blogs , 'tab'=>"trashed"]);
-    }
-
-    public function all()
-    {
-        $blogs=Blog::withTrashed()
-        ->where('user_id',Auth::user()->id)
-        ->paginate(3);
-        return view('blogs.Home',['blogs'=>$blogs , 'tab'=>"with_trashed"]);
-
-    }
+   
 
     public function details($id)
     {
         $blog=Blog::findOrFail($id);
-
         return view('blogs.details',['blog'=>$blog]);
     }
   
@@ -80,10 +63,11 @@ class BlogController extends Controller
     public function show($id)
     {
         $blog=Blog::findOrFail($id);
+        $categories=Category::all();
 
         $this->authorize('view', $blog);
 
-        return view('blogs.show',['blog'=>$blog]);
+        return view('blogs.show',['blog'=>$blog,"categories"=>$categories]);
     }
 
     public function updateBlog(BlogRequest $req,$id)
@@ -95,12 +79,24 @@ class BlogController extends Controller
 
         $blog->title=$req->title;
         $blog->content=$req->content;
+        if($req->hasFile('photo'))
+        {
+            // $path= $req->photo->store('images');
+           if($blog->photo)
+           {
+               Storage::delete($blog->photo);
+           }
+            $path= Storage::putFile("images",$req->photo);
+            $blog->photo=$path;
+
+        }
         $blog->save();
 
       
         return redirect('/');
 
     }
+
 
     public function destroy($id)
     {
@@ -110,69 +106,68 @@ class BlogController extends Controller
 
         $blog->delete();
 
+
+
         return back();
     }
 
+
+
+
+
+    //   when we work with softDelete 
+
+
+
     public function restore($id)
     {
-        Blog::withTrashed()
+
+        $blog= Blog::onlyTrashed()
         ->where('id', $id)
-        ->restore();
+        ->first();
+
+        $this->authorize('restore', $blog);
+
+        $blog->restore();
+
+       
 
         return redirect('/');
     }
 
 
-
- 
-   
-   
-    public function getData()
+    public function forceDelete($id)
     {
-        //   $blogs=Category::find(5)->blogs;
+        $blog= Blog::onlyTrashed()
+        ->where('id',$id)
+        ->first();
 
-        //   foreach ($blogs as $blog) {
-              
-        //     echo $blog->title;
-        //     echo '<br>';
-        //     echo $blog->content;
-        //     echo '<hr>';
-        //   }
+        $this->authorize('forceDelete', $blog);
 
-        // $category=Blog::findOrFail(8)->category;
+        $blog->forceDelete();
 
-        //  echo $category->name;
+        return back();
 
-        // // get all blogs==> array contains 'second blog ' in title
-        // $blogs=Blog::where('title',"second blog")->get();
+       
+    }
 
-        // // get first blog==> object  contains 'second blog ' in title
-        // $blogs=Blog::where('title',"second blog")->first();
+    public function trashed_blog()
+    {
+        $blogs=Blog::onlyTrashed()
+        ->where('user_id',Auth::user()->id)
+        ->paginate(3);
+        return view('blogs.Home',['blogs'=>$blogs , 'tab'=>"trashed"]);
+    }
 
-
-        // // select * from categories inner join blogs on category.id=blog.category_id
-        // categories with blogs
-        // $categories=  Category::whereHas('blogs')->get();
-
-         // select * from categories inner join blogs on category.id!=blog.category_id
-        //  categories with none blogs
-        //  $categories=  Category::whereDoesntHave('blogs')->get();
-
-
-        // get categories with blogs
-        // $categories=Category::with('blogs')->get();
-
-        // // get categories with blogs
-        // $blogs=Blog::with('category')->get();
-
-
-        // $categories=Category::withCount('blogs')->get();
-
-
-        //  return response()->json(['categories'=>$categories]);
-
-
+    public function all()
+    {
+        $blogs=Blog::withTrashed()
+        ->where('user_id',Auth::user()->id)
+        ->paginate(3);
+        return view('blogs.Home',['blogs'=>$blogs , 'tab'=>"with_trashed"]);
 
     }
+   
+   
 }
 

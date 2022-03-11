@@ -46,6 +46,9 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('all',[BlogController::class,'all']);
     Route::get('restore/{id}',[BlogController::class,'restore']);
 
+    // forceDelete
+    Route::delete('forceDelete/{id}',[BlogController::class,'forceDelete']);
+
     // comments
     Route::post('add',[CommentController::class,'store']);
     Route::delete('deleteComment/{id}',[CommentController::class,'deleteComment']);
