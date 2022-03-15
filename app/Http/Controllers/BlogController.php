@@ -21,7 +21,7 @@ class BlogController extends Controller
 
     public function home()
     {
-        $blogs=Blog::latest()->paginate(3);
+        $blogs=Blog::all();
         return view('blogs.Home',['blogs'=>$blogs,'tab'=>"current"]);
     }
 
