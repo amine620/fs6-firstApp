@@ -30,7 +30,7 @@ class BlogPolicy
      */
     public function view(User $user, Blog $blog)
     {
-        return $user->id===$blog->user_id;
+        return $user->id==$blog->user_id;
     }
 
     /**
@@ -53,7 +53,7 @@ class BlogPolicy
      */
     public function update(User $user, Blog $blog)
     {
-        return $user->id===$blog->user_id;
+        return $user->id==$blog->user_id;
     }
 
     /**
@@ -65,7 +65,7 @@ class BlogPolicy
      */
     public function delete(User $user, Blog $blog)
     {
-        return $user->id===$blog->user_id; 
+        return $user->id==$blog->user_id; 
 
     }
 
@@ -78,7 +78,7 @@ class BlogPolicy
      */
     public function restore(User $user, Blog $blog)
     {
-        return $user->id===$blog->user_id;
+        return $user->id==$blog->user_id;
     }
 
     /**
@@ -90,6 +90,6 @@ class BlogPolicy
      */
     public function forceDelete(User $user, Blog $blog)
     {
-        return $user->id===$blog->user_id;
+        return $user->id==$blog->user_id;
     }
 }
