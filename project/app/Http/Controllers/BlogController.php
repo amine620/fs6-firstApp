@@ -31,7 +31,7 @@ class BlogController extends Controller
     public function details($id)
     {
         $blog=Blog::findOrFail($id);
-        return view('blogs.details',['blog'=>$blog]);
+        return view('blogs.Details',['blog'=>$blog]);
     }
   
     public function create()
