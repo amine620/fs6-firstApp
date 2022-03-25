@@ -62,6 +62,7 @@
          <li class="list-group-item"> <span class="badge bg-primary">{{$blog->category->name}}</span>  - published by : {{$blog->user->name}} - ({{$blog->comments->count()}}) comments </li>
          <li class="list-group-item">{{$blog->created_at->diffForHumans()}}</li>
          <li class="list-group-item">
+             @auth
              @if ($blog->likes()->where('blog_id',$blog->id)->where('user_id',Auth::user()->id)->first())
                  
              <form action="/removeLike" method="post">
@@ -86,7 +87,7 @@
                 </button>
             </form>
              @endif
-          
+             @endauth
 
          </li>
      </ul>
